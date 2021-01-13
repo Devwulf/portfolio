@@ -1,4 +1,8 @@
 import React from "react";
+import Contact from "../components/Contact";
+import Project from "../components/Project";
+import Skills from "../components/Skills";
+import Welcome from "../components/Welcome";
 
 type MainProps = {
 
@@ -20,40 +24,26 @@ export default class Main extends React.Component<MainProps, MainState> {
     render() {
         return (
             <div className="main2">
-                <div className="w-screen h-screen bg-gray-900">
-                    <div className="w-full h-full flex items-center justify-center">
-                        <div className="text-3xl text-gray-200">Welcome Screen</div>
-                    </div>
+                <div className="w-screen h-screen">
+                    <Welcome />
                 </div>
                 <div className="w-screen bg-gray-200" style={{height: "32rem"}}>
-                    <div className="w-full h-full flex items-center justify-center">
-                        <div className="text-3xl text-gray-900">Project 1</div>
-                    </div>
+                    <Project isFlipped={false} />
                 </div>
                 <div className="w-screen bg-gray-300" style={{height: "32rem"}}>
-                    <div className="w-full h-full flex items-center justify-center">
-                        <div className="text-3xl text-gray-900">Project 2</div>
-                    </div>
+                    <Project isFlipped={true} />
                 </div>
                 <div className="w-screen bg-gray-400" style={{height: "32rem"}}>
-                    <div className="w-full h-full flex items-center justify-center">
-                        <div className="text-3xl text-gray-900">Project 3</div>
-                    </div>
+                    <Project isFlipped={false} />
                 </div>
                 <div className="w-screen bg-gray-500" style={{height: "32rem"}}>
-                    <div className="w-full h-full flex items-center justify-center">
-                        <div className="text-3xl text-gray-900">Project 4</div>
-                    </div>
+                    <Project isFlipped={true} />
                 </div>
-                <div className="w-screen bg-gray-800" style={{height: "32rem"}}>
-                    <div className="w-full h-full flex items-center justify-center">
-                        <div className="text-3xl text-gray-200">Skills</div>
-                    </div>
+                <div className="w-screen" style={{height: "48rem"}}>
+                    <Skills />
                 </div>
-                <div className="w-screen bg-gray-700" style={{height: "32rem"}}>
-                    <div className="w-full h-full flex items-center justify-center">
-                        <div className="text-3xl text-gray-200">Contact</div>
-                    </div>
+                <div className="w-screen" style={{height: "32rem"}}>
+                    <Contact />
                 </div>
             </div>
         );
