@@ -19,7 +19,7 @@ export default class Main extends React.Component<MainProps, MainState> {
 
     render() {
         return (
-            <div className="">
+            <div className="main2">
                 <div className="w-screen h-screen bg-gray-900">
                     <div className="w-full h-full flex items-center justify-center">
                         <div className="text-3xl text-gray-200">Welcome Screen</div>
