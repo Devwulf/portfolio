@@ -28,12 +28,12 @@ export default class Project extends React.Component<ProjectProps, ProjectState>
                         <div className="w-1/2 flex items-center justify-center">
                             <span className="text-3xl">Example Project</span>
                         </div>
-                        <img src={dashboard} style={{width: "60%", height: "100%", objectFit: "cover", objectPosition: "0px -140px"}} />
+                        <img src={dashboard} style={{width: "60%", height: "100%", objectFit: "cover", objectPosition: "0px -100px"}} />
                     </div>
                 ) || 
                 isFlipped && (
                     <div className="w-full h-full flex flex-row">
-                        <img src={dashboard} style={{width: "60%", height: "100%", objectFit: "cover", objectPosition: "0px -140px"}} />
+                        <img src={dashboard} style={{width: "60%", height: "100%", objectFit: "cover", objectPosition: "0px -100px"}} />
                         <div className="w-1/2 flex items-center justify-center">
                             <span className="text-3xl">Example Project</span>
                         </div>
