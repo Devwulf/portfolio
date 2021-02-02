@@ -47,3 +47,84 @@ html {
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
 }
+
+.bg-gradient {
+  background: rgb(17,17,17);
+  background: linear-gradient(to right, rgba(17,17,17,0) 0%, rgba(17,17,17,0.85) 10%, rgba(17,17,17,1) 100%);
+}
+
+.anim-150 {
+  animation-duration: 0.15s;
+}
+
+.anim-200 {
+  animation-duration: 0.2s;
+}
+
+.anim-300 {
+  animation-duration: 0.3s;
+}
+
+.anim-500 {
+  animation-duration: 0.5s;
+}
+
+.fadeInRight {
+  animation-name: fadeInRight;
+  animation-fill-mode: both;
+}
+@keyframes fadeInRight {
+  0% {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.fadeOutRight {
+  animation-name: fadeOutRight;
+  animation-fill-mode: both;
+}
+@keyframes fadeOutRight {
+  0% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+}
+
+.extendIn {
+  animation-name: extendIn;
+  animation-fill-mode: both;
+}
+@keyframes extendIn {
+  0% {
+    transform: scaleX(0.1);
+  }
+  
+  100% {
+    transform: scaleX(1);
+  }
+}
+
+.extendOut {
+  animation-name: extendOut;
+  animation-fill-mode: both;
+}
+@keyframes extendOut {
+  0% {
+    transform: scaleX(1);
+  }
+
+  100% {
+    transform: scaleX(0.2);
+  }
+}

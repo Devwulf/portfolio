@@ -1,13 +1,22 @@
 import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import SectionButton from "./SectionButton";
+
+export type IndexName = {
+    index: number;
+    name: string;
+}
 
 type OnePageScrollerProps = {
-    goToId?: string;
+    goToId?: string | number;
+    showNavigator?: boolean;
     children?: React.ReactNodeArray;
 }
 
 type OnePageScrollerState = {
     currentId: string;
     scrollIndex: number;
+    isNavHover: boolean;
 }
 
 export default class OnePageScroller extends React.Component<OnePageScrollerProps, OnePageScrollerState> {
@@ -20,25 +29,32 @@ export default class OnePageScroller extends React.Component<OnePageScrollerProp
 
         this.state = {
             currentId: "",
-            scrollIndex: 0
+            scrollIndex: 0,
+            isNavHover: false
         };
 
         this.goToIndex = this.goToIndex.bind(this);
+        this.getSectionNames = this.getSectionNames.bind(this);
         this.onUpdateId = this.onUpdateId.bind(this);
         this.onScroll = this.onScroll.bind(this);
+        this.onNavHoverStart = this.onNavHoverStart.bind(this);
+        this.onNavHoverEnd = this.onNavHoverEnd.bind(this);
     }
 
     componentDidMount() {
-        console.log(this.props.goToId);
         if (this.props.goToId)
             this.onUpdateId();
     }
 
     componentDidUpdate() {
         const { goToId } = this.props;
-        const { currentId } = this.state;
-        if (goToId && goToId !== currentId)
-            this.onUpdateId();
+        const { currentId, scrollIndex } = this.state;
+        if (goToId) {
+            if (typeof goToId === "number" && goToId !== scrollIndex)
+                this.goToIndex(goToId);
+            else if (typeof goToId === "string" && goToId !== currentId)
+                this.onUpdateId();
+        }
     }
 
     goToIndex(nextIndex: number) {
@@ -63,8 +79,28 @@ export default class OnePageScroller extends React.Component<OnePageScrollerProp
         this.setState({scrollIndex: nextIndex});
     }
 
+    getSectionNames(): IndexName[] {
+        const { children } = this.props;
+        if (!children)
+            return [];
+
+        const names: IndexName[] = [];
+        for (let i = 0; i < children.length; i++) {
+            const elem = (children[i] as React.ReactElement);
+            const name = elem.props["data-name"];
+            if (name)
+                names.push({index: i, name: name});
+        }
+
+        return names;
+    }
+
     onUpdateId() {
         const { goToId } = this.props;
+        if (typeof goToId === "number") {
+            this.goToIndex(goToId);
+            return;
+        }
 
         const pageContainer = this.pageContainer.current;
         if (!pageContainer)
@@ -114,10 +150,35 @@ export default class OnePageScroller extends React.Component<OnePageScrollerProp
         this.goToIndex(nextIndex);
     }
 
+    onNavHoverStart() {
+        this.setState({isNavHover: true});
+    }
+
+    onNavHoverEnd() {
+        this.setState({isNavHover: false});
+    }
+
     render(): JSX.Element {
-        const { children } = this.props;
+        const { showNavigator, children } = this.props;
+        const { scrollIndex } = this.state;
+        const showNav = showNavigator ?? false;
+        const names = this.getSectionNames();
+        
         return ( 
-            <div className="overflow-hidden h-screen">
+            <div className="overflow-hidden relative h-screen">
+                {showNav && (
+                    <div className="absolute flex flex-col justify-center" style={{top: "50%", bottom: "50%", right: "0", zIndex: 100}}>
+                        <div className="w-40 pr-4" style={{minHeight: (names.length * 32)}}
+                            onMouseEnter={this.onNavHoverStart}
+                            onMouseLeave={this.onNavHoverEnd}>
+                            <div className="flex flex-col px-3 py-2 rounded">
+                                {names.map(name => (
+                                    <SectionButton key={name.index} indexName={name} currentIndex={scrollIndex} goToIndex={this.goToIndex} />
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                )}
                 <div ref={this.pageContainer}
                     className="transform duration-300 ease-in-out h-full"
                     onWheel={this.onScroll}>
