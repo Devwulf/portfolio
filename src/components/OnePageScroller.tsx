@@ -1,6 +1,7 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SectionButton from "./SectionButton";
+import { ScrollerContext } from "../utils/ScrollerHelper";
 
 export type IndexName = {
     index: number;
@@ -15,6 +16,7 @@ type OnePageScrollerProps = {
 
 type OnePageScrollerState = {
     currentId: string;
+    selectedId: string;
     scrollIndex: number;
     isNavHover: boolean;
 }
@@ -29,6 +31,7 @@ export default class OnePageScroller extends React.Component<OnePageScrollerProp
 
         this.state = {
             currentId: "",
+            selectedId: "",
             scrollIndex: 0,
             isNavHover: false
         };
@@ -44,6 +47,16 @@ export default class OnePageScroller extends React.Component<OnePageScrollerProp
     componentDidMount() {
         if (this.props.goToId)
             this.onUpdateId();
+
+        const pageContainer = this.pageContainer.current;
+        if (!pageContainer)
+            return;
+
+        const children = pageContainer.childNodes;
+        if (!children)
+            return;
+
+        this.setState({selectedId: (children[0] as HTMLDivElement).id});
     }
 
     componentDidUpdate() {
@@ -66,7 +79,14 @@ export default class OnePageScroller extends React.Component<OnePageScrollerProp
         if (!children)
             return;
 
-        const nextHeight: number = (children[nextIndex] as any).clientHeight;
+        const nextChild = children[nextIndex] as HTMLDivElement; // as HTMLDivElement; to get intellisense working
+        const nextHeight: number = nextChild.clientHeight;
+        
+        /*
+        currentChild.setAttribute("style", "");
+        nextChild.setAttribute("style", "z-index: 100");
+        */
+        
         let totalHeight: number = 0;
         for (let i = 0; i < nextIndex; i++) {
             totalHeight += (children[i] as any).clientHeight;
@@ -76,7 +96,8 @@ export default class OnePageScroller extends React.Component<OnePageScrollerProp
         const topOffset = nextIndex === 0 ? ((windowHeight - nextHeight) / 2) : 0;
         const botOffset = nextIndex === children.length - 1 ? windowHeight - nextHeight : ((windowHeight - nextHeight) / 2);
         pageContainer.style.transform = `translate3d(0, ${-(totalHeight - botOffset + topOffset)}px, 0)`;
-        this.setState({scrollIndex: nextIndex});
+        
+        this.setState({selectedId: nextChild.id, scrollIndex: nextIndex});
     }
 
     getSectionNames(): IndexName[] {
@@ -87,7 +108,8 @@ export default class OnePageScroller extends React.Component<OnePageScrollerProp
         const names: IndexName[] = [];
         for (let i = 0; i < children.length; i++) {
             const elem = (children[i] as React.ReactElement);
-            const name = elem.props["data-name"];
+            const name = elem.props["label"];
+            
             if (name)
                 names.push({index: i, name: name});
         }
@@ -160,7 +182,7 @@ export default class OnePageScroller extends React.Component<OnePageScrollerProp
 
     render(): JSX.Element {
         const { showNavigator, children } = this.props;
-        const { scrollIndex } = this.state;
+        const { selectedId, scrollIndex } = this.state;
         const showNav = showNavigator ?? false;
         const names = this.getSectionNames();
         
@@ -179,11 +201,13 @@ export default class OnePageScroller extends React.Component<OnePageScrollerProp
                         </div>
                     </div>
                 )}
-                <div ref={this.pageContainer}
-                    className="transform duration-300 ease-in-out h-full"
-                    onWheel={this.onScroll}>
-                    {children}
-                </div>
+                <ScrollerContext.Provider value={selectedId}>
+                    <div ref={this.pageContainer}
+                        className="transform duration-300 ease-in-out h-full"
+                        onWheel={this.onScroll}>
+                        {children}
+                    </div>
+                </ScrollerContext.Provider>
             </div>
         );
     }

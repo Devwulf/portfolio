@@ -14,7 +14,7 @@ export default class Welcome extends React.Component<WelcomeProps, WelcomeState>
         super(props);
 
         this.state = {
-
+            
         };
     }
 
@@ -31,3 +31,4 @@ export default class Welcome extends React.Component<WelcomeProps, WelcomeState>
         );
     }
 }
+

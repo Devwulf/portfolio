@@ -26,7 +26,7 @@ function MainComponent() {
 
     return (
         <Main id={id} />
-    )
+    );
 }
 
 export default App;

@@ -2,6 +2,7 @@ import React from "react";
 import Contact from "../components/Contact";
 import OnePageScroller from "../components/OnePageScroller";
 import Project from "../components/Project";
+import ScrollerChild from "../components/ScrollerChild";
 import Skills from "../components/Skills";
 import Welcome from "../components/Welcome";
 
@@ -19,27 +20,27 @@ export default function Main(props: MainProps) {
     return (
         <div className="main2">
             <OnePageScroller goToId={id} showNavigator={true}>
-                <div id="welcome" data-name="Welcome" className="w-screen h-screen">
+                <ScrollerChild id="welcome" label="Welcome" height="full">
                     <Welcome />
-                </div>
-                <div id="project1" data-name="Project 1" className="w-screen bg-gray-200" style={{height: "40rem"}}>
+                </ScrollerChild>
+                <ScrollerChild id="project1" label="Project 1" height={40}>
                     <Project isFlipped={false} />
-                </div>
-                <div id="project2" data-name="Project 2" className="w-screen bg-gray-300" style={{height: "40rem"}}>
+                </ScrollerChild>
+                <ScrollerChild id="project2" label="Project 2" height={40}>
                     <Project isFlipped={true} />
-                </div>
-                <div id="project3" data-name="Project 3" className="w-screen bg-gray-400" style={{height: "40rem"}}>
+                </ScrollerChild>
+                <ScrollerChild id="project3" label="Project 3" height={40}>
                     <Project isFlipped={false} />
-                </div>
-                <div id="project4" data-name="Project 4" className="w-screen bg-gray-500" style={{height: "40rem"}}>
+                </ScrollerChild>
+                <ScrollerChild id="project4" label="Project 4" height={40}>
                     <Project isFlipped={true} />
-                </div>
-                <div id="skills" data-name="Skills" className="w-screen" style={{height: "48rem"}}>
+                </ScrollerChild>
+                <ScrollerChild id="skills" label="Skills" height={48}>
                     <Skills />
-                </div>
-                <div id="contact" data-name="Contact" className="w-screen" style={{height: "32rem"}}>
+                </ScrollerChild>
+                <ScrollerChild id="contact" label="Contact" height={32}>
                     <Contact />
-                </div>
+                </ScrollerChild>
             </OnePageScroller>
         </div>
     );
