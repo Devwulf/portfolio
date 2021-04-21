@@ -7,17 +7,18 @@ import Main from "./pages/Main";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
+import GoogleFontLoader from "react-google-font-loader";
+import NotFound from "./pages/NotFound";
 
 library.add(fas);
 
 function App() {
     return (
-        <BrowserRouter>
-            <Switch>
-                <Route exact path="/portfolio/" component={Main} />
-                <Route exact path="/portfolio/:id" component={MainComponent} />
-            </Switch>
-        </BrowserRouter>
+        <Switch>
+            <Route exact path="/portfolio/" component={Main} />
+            <Route exact path="/portfolio/:id" component={MainComponent} />
+            <Route component={NotFound} />
+        </Switch>
     );
 }
 

@@ -25,7 +25,6 @@ export default class ScrollerChild extends React.Component<ScrollerChildProps, S
 
     render(): JSX.Element {
         const { id, label, height, children } = this.props;
-        console.log(this.context);
         
         return (
             <div id={id} data-name={label} className="relative w-screen" style={{height: height === "full" ? "100vh" : `${height}rem`}}>

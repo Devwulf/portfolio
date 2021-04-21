@@ -18,7 +18,7 @@ export default function Main(props: MainProps) {
     const { id } = props;
 
     return (
-        <div className="main2">
+        <div id="main">
             <OnePageScroller goToId={id} showNavigator={true}>
                 <ScrollerChild id="welcome" label="Welcome" height="full">
                     <Welcome />
