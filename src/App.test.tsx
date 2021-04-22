@@ -21,12 +21,10 @@ test("renders welcome message", () => {
 
 test("renders when given bad id param", () => {
     const wrapper = renderWithRouter(<App />, { route: "/portfolio/someId" });
-
-    expect(wrapper.find("#welcomeMessage")).not.toBeNull();
+    expect(wrapper.find("#welcomeMessage")).toBeTruthy();
 });
 
 test("landing on bad page", () => {
     const wrapper = renderWithRouter(<App />, { route: "/something" });
-
-    expect(wrapper.find("#notFound")).not.toBeNull();
+    expect(wrapper.find("#notFound")).toBeTruthy();
 });

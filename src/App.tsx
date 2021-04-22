@@ -1,13 +1,11 @@
 import React from "react";
-import { BrowserRouter, Route, Switch, useParams } from "react-router-dom";
+import { Route, Switch, useParams } from "react-router-dom";
 import "./App.css";
 import "./assets/main.css";
-import OnePageScroller from "./components/OnePageScroller";
 import Main from "./pages/Main";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
-import GoogleFontLoader from "react-google-font-loader";
 import NotFound from "./pages/NotFound";
 
 library.add(fas);
