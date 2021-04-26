@@ -1,5 +1,4 @@
 import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SectionButton from "./SectionButton";
 import { ScrollerContext } from "../utils/ScrollerHelper";
 

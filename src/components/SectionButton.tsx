@@ -32,9 +32,12 @@ export default class SectionButton extends React.Component<SectionButtonProps, S
         this.setState({isHover: false});
     }
 
-    render(): JSX.Element {
+    render(): JSX.Element | null {
         const { indexName, currentIndex, goToIndex } = this.props;
         const { isHover } = this.state;
+        if (!indexName || indexName.index < 0 || !indexName.name || currentIndex < 0)
+            return null;
+
         const isSelected = currentIndex === indexName.index;
 
         return (

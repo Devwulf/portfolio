@@ -20,8 +20,12 @@ function App() {
     );
 }
 
+type ParamTypes = {
+    id: string;
+}
+
 function MainComponent() {
-    const { id } = useParams();
+    const { id } = useParams<ParamTypes>();
 
     return (
         <Main id={id} />
